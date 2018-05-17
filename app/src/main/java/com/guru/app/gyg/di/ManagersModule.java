@@ -1,7 +1,7 @@
 package com.guru.app.gyg.di;
 
-import com.guru.app.gyg.network.RepositoryManager;
 import com.guru.app.gyg.network.IRepositoryManager;
+import com.guru.app.gyg.network.RepositoryManager;
 
 import dagger.Binds;
 import dagger.Module;

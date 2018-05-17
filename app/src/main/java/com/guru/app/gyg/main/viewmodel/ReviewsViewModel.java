@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.content.res.Resources;
 import android.databinding.Bindable;
 import android.graphics.Rect;
-import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
