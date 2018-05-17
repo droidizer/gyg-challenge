@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="com.guru.app.gyg.utils.rv.LayoutManagers" />
+        <import type="android.view.View" />
+        <variable
+            name="reviewViewModel"
+            type="com.guru.app.gyg.main.viewmodel.ReviewsViewModel" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.guru.app.gyg.utils.rv.AndroidBindableRecyclerView
+            android:id="@+id/main_rv"
+            nestedScrollingEnabled="@{false}"
+            itemDecoration="@{reviewViewModel.itemDecoration}"
+            itemViewBinder="@{reviewViewModel.templatesForObjects}"
+            items="@{reviewViewModel.listItems}"
+            layoutManager="@{LayoutManagers.linear()}"
+            onItemClickListener="@{reviewViewModel.itemClickListener}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{reviewViewModel.loading? View.GONE: View.VISIBLE}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_18"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="@{reviewViewModel.errorMessage}"
+            android:visibility="@{reviewViewModel.errorVisible? View.VISIBLE: View.GONE}" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="@{reviewViewModel.loading? View.VISIBLE: View.GONE}" />
+    </FrameLayout>
+</layout>
