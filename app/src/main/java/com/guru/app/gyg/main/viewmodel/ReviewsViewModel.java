@@ -174,7 +174,6 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
                 }
             }
             notifyBindings();
-            setNextPage();
         } else {
             setErrorMessage(mResources.getString(R.string.no_results));
             setErrorVisible(true);
