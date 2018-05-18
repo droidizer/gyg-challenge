@@ -65,7 +65,7 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
         setLoading(true);
         mListItems = new ArrayList<>();
         mPageDescriptor = new PageDescriptor.PageDescriptorBuilder()
-                .setPageSize(20)
+                .setPageSize(40)
                 .setStartPage(1)
                 .build();
         mPageDescriptor.setCurrentPage(1);

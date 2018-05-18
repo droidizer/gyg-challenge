@@ -114,6 +114,13 @@ dependencies {
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    testImplementation "android.arch.core:core-testing:$architectureComponents"
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    androidTestImplementation 'org.easytesting:fest-assert-core:2.0M10'
+    testImplementation 'org.easytesting:fest-assert-core:2.0M10'
+
+    testImplementation 'org.mockito:mockito-core:2.13.0'
+    androidTestImplementation 'org.mockito:mockito-android:2.8.9'
 }
