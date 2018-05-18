@@ -16,7 +16,7 @@ public class RepositoryManager implements IRepositoryManager {
     }
 
     @Override
-    public Observable<ReviewModel> getReviews() {
-        return mApiService.getReviews();
+    public Observable<ReviewModel> getReviews(int count, int pageNumber) {
+        return mApiService.getReviews(count, pageNumber);
     }
 }

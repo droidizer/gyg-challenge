@@ -80,5 +80,4 @@ public class PageDescriptor {
         mCurrentPage = currentPage;
         return this;
     }
-
 }

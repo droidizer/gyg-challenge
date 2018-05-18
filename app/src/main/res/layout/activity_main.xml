@@ -16,6 +16,7 @@
         <com.guru.app.gyg.utils.rv.AndroidBindableRecyclerView
             android:id="@+id/main_rv"
             nestedScrollingEnabled="@{false}"
+            pageDescriptor="@{reviewViewModel.nextPage}"
             itemDecoration="@{reviewViewModel.itemDecoration}"
             itemViewBinder="@{reviewViewModel.templatesForObjects}"
             items="@{reviewViewModel.listItems}"

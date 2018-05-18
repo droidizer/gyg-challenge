@@ -19,6 +19,7 @@ import com.guru.app.gyg.model.ReviewModel;
 import com.guru.app.gyg.network.IRepositoryManager;
 import com.guru.app.gyg.utils.rv.AndroidItemBinder;
 import com.guru.app.gyg.utils.rv.ItemClickListener;
+import com.guru.app.gyg.utils.rv.PageDescriptor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
     private Map<Class<?>, AndroidItemBinder> mTemplates;
 
     private List<AndroidBaseViewModel> mListItems;
+    private PageDescriptor mPageDescriptor;
 
     @Inject
     public ReviewsViewModel(Application application, IRepositoryManager repositoryManager, Resources resources) {
@@ -62,16 +64,25 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
         super.onStart();
         setLoading(true);
         mListItems = new ArrayList<>();
-        subscribeToChanges();
+        mPageDescriptor = new PageDescriptor.PageDescriptorBuilder()
+                .setPageSize(20)
+                .setStartPage(1)
+                .setThreshold(5)
+                .build();
+        mPageDescriptor.setCurrentPage(1);
+        setNextPage();
     }
 
-    private void subscribeToChanges() {
-        if (mDisposable.isDisposed()) {
-            mDisposable = mRepositoryManager.getReviews()
-                    .filter(response -> response != null && response.getReviews() != null)
-                    .subscribe(this::notifyResult,
-                            this::notifyError);
-        }
+    public PageDescriptor getNextPage() {
+        return mPageDescriptor;
+    }
+
+    private void setNextPage() {
+        mDisposable.dispose();
+        mDisposable = mRepositoryManager.getReviews(mPageDescriptor.getPageSize(), mPageDescriptor.getCurrentPage() - 1)
+                .filter(response -> response != null && response.getReviews() != null)
+                .subscribe(this::notifyResult,
+                        this::notifyError);
     }
 
     public Map<Class<?>, AndroidItemBinder> getTemplatesForObjects() {
@@ -129,9 +140,8 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
         notifyPropertyChanged(BR.errorMessage);
     }
 
-
     private void setErrorVisible(boolean errorVisible) {
-        mErrorVisible = !isLoading() && errorVisible;
+        mErrorVisible = mListItems != null && mListItems.isEmpty() && !isLoading() && errorVisible;
         notifyPropertyChanged(BR.errorVisible);
     }
 
@@ -165,6 +175,7 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
                 }
             }
             notifyBindings();
+            setNextPage();
         } else {
             setErrorMessage(mResources.getString(R.string.no_results));
             setErrorVisible(true);

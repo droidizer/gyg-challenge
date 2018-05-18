@@ -6,5 +6,5 @@ import io.reactivex.Observable;
 
 public interface IRepositoryManager {
 
-    Observable<ReviewModel> getReviews();
+    Observable<ReviewModel> getReviews(int count, int pageNumber);
 }
