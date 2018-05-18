@@ -67,7 +67,6 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
         mPageDescriptor = new PageDescriptor.PageDescriptorBuilder()
                 .setPageSize(20)
                 .setStartPage(1)
-                .setThreshold(5)
                 .build();
         mPageDescriptor.setCurrentPage(1);
         setNextPage();
@@ -77,7 +76,7 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
         return mPageDescriptor;
     }
 
-    private void setNextPage() {
+    public void setNextPage() {
         mDisposable.dispose();
         mDisposable = mRepositoryManager.getReviews(mPageDescriptor.getPageSize(), mPageDescriptor.getCurrentPage() - 1)
                 .filter(response -> response != null && response.getReviews() != null)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="com.guru.app.gyg.utils.rv.LayoutManagers" />
@@ -16,12 +16,12 @@
         <com.guru.app.gyg.utils.rv.AndroidBindableRecyclerView
             android:id="@+id/main_rv"
             nestedScrollingEnabled="@{false}"
-            pageDescriptor="@{reviewViewModel.nextPage}"
             itemDecoration="@{reviewViewModel.itemDecoration}"
             itemViewBinder="@{reviewViewModel.templatesForObjects}"
             items="@{reviewViewModel.listItems}"
             layoutManager="@{LayoutManagers.linear()}"
             onItemClickListener="@{reviewViewModel.itemClickListener}"
+            pageDescriptor="@={reviewViewModel.nextPage}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="@{reviewViewModel.loading? View.GONE: View.VISIBLE}" />
