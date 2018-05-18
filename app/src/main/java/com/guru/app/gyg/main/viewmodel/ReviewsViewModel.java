@@ -69,16 +69,16 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
                 .setStartPage(1)
                 .build();
         mPageDescriptor.setCurrentPage(1);
-        setNextPage();
+        setNextPage(mPageDescriptor);
     }
 
     public PageDescriptor getNextPage() {
         return mPageDescriptor;
     }
 
-    public void setNextPage() {
+    public void setNextPage(PageDescriptor pageDescriptor) {
         mDisposable.dispose();
-        mDisposable = mRepositoryManager.getReviews(mPageDescriptor.getPageSize(), mPageDescriptor.getCurrentPage() - 1)
+        mDisposable = mRepositoryManager.getReviews(pageDescriptor.getPageSize(), pageDescriptor.getCurrentPage() - 1)
                 .filter(response -> response != null && response.getReviews() != null)
                 .subscribe(this::notifyResult,
                         this::notifyError);
@@ -174,6 +174,8 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
                 }
             }
             notifyBindings();
+            setNextPage(mPageDescriptor);
+            setErrorVisible(false);
         } else {
             setErrorMessage(mResources.getString(R.string.no_results));
             setErrorVisible(true);
