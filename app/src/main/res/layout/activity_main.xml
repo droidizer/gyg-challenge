@@ -21,7 +21,7 @@
             items="@{reviewViewModel.listItems}"
             layoutManager="@{LayoutManagers.linear()}"
             onItemClickListener="@{reviewViewModel.itemClickListener}"
-            pageDescriptor="@={reviewViewModel.nextPage}"
+            pageDescriptor="@{reviewViewModel.nextPage}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="@{reviewViewModel.loading? View.GONE: View.VISIBLE}" />
