@@ -10,7 +10,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.guru.app.gyg"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -109,7 +109,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
 
-    implementation 'com.ghedeon:aws-interceptor:0.6'
+    implementation 'com.github.bblackbelt:BindingsCollections:2f9d886b2cd6b1f89373e72ef7ebda14c4e4b18d'
 
     //test
     testImplementation 'junit:junit:4.12'

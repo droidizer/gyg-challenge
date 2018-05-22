@@ -2,26 +2,25 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.guru.app.gyg.utils.rv.LayoutManagers" />
+        <import type="com.blackbelt.bindings.recyclerviewbindings.LayoutManagers" />
         <import type="android.view.View" />
         <variable
             name="reviewViewModel"
-            type="com.guru.app.gyg.main.viewmodel.ReviewsViewModel" />
+            type="com.guru.app.gyg.main.viewmodel.ReviewViewModel" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.guru.app.gyg.utils.rv.AndroidBindableRecyclerView
+        <com.blackbelt.bindings.recyclerviewbindings.AndroidBindableRecyclerView
             android:id="@+id/main_rv"
             nestedScrollingEnabled="@{false}"
             itemDecoration="@{reviewViewModel.itemDecoration}"
             itemViewBinder="@{reviewViewModel.templatesForObjects}"
             items="@{reviewViewModel.listItems}"
             layoutManager="@{LayoutManagers.linear()}"
-            onItemClickListener="@{reviewViewModel.itemClickListener}"
-            pageDescriptor="@{reviewViewModel.nextPage}"
+            pageDescriptor="@={reviewViewModel.nextPage}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="@{reviewViewModel.loading? View.GONE: View.VISIBLE}" />

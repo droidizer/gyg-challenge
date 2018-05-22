@@ -11,15 +11,15 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.blackbelt.bindings.recyclerviewbindings.AndroidItemBinder;
+import com.blackbelt.bindings.recyclerviewbindings.ItemClickListener;
+import com.blackbelt.bindings.recyclerviewbindings.PageDescriptor;
 import com.guru.app.gyg.BR;
 import com.guru.app.gyg.R;
 import com.guru.app.gyg.misc.AndroidBaseViewModel;
 import com.guru.app.gyg.model.Review;
 import com.guru.app.gyg.model.ReviewModel;
 import com.guru.app.gyg.network.IRepositoryManager;
-import com.guru.app.gyg.utils.rv.AndroidItemBinder;
-import com.guru.app.gyg.utils.rv.ItemClickListener;
-import com.guru.app.gyg.utils.rv.PageDescriptor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,6 +50,7 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
     private Map<Class<?>, AndroidItemBinder> mTemplates;
 
     private List<AndroidBaseViewModel> mListItems;
+
     private PageDescriptor mPageDescriptor;
 
     @Inject
@@ -64,10 +65,6 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
         super.onStart();
         setLoading(true);
         mListItems = new ArrayList<>();
-        mPageDescriptor = new PageDescriptor.PageDescriptorBuilder()
-                .setPageSize(40)
-                .setStartPage(1)
-                .build();
         mPageDescriptor.setCurrentPage(1);
         setNextPage(mPageDescriptor);
     }
@@ -79,7 +76,7 @@ public class ReviewsViewModel extends AndroidBaseViewModel {
     public void setNextPage(PageDescriptor pageDescriptor) {
         mDisposable.dispose();
         mDisposable = mRepositoryManager.getReviews(pageDescriptor.getPageSize(), pageDescriptor.getCurrentPage() - 1)
-                .filter(response -> response != null && response.getReviews() != null)
+                .filter(response -> response.getReviews() != null)
                 .subscribe(this::notifyResult,
                         this::notifyError);
     }
